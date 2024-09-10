@@ -139,7 +139,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 onPressed: () {
-                  Get.back();
+                  Get.to(() => AddressPage());
                 },
                 child: Text(
                   'Continue',
