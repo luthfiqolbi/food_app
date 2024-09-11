@@ -24,9 +24,46 @@ class _FoodPageState extends State<FoodPage> {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    "Food Market",
+                    style: blackFontStyle1,
+                  ),
+                  Text(
+                    "Let's get some food",
+                    style: blackFontStyle2,
+                  ),
+                ],
+              ),
+              Container(
+                width: 60,
+                height: 60,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage('assets/qo.jpg'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         //card food
+        Container(
+          height: 220,
+          width: double.infinity,
+          margin: EdgeInsets.symmetric(
+            vertical: defaultMargin,
+          ),
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+          ),
+        ),
         //tab layout
       ],
     );
