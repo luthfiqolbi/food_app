@@ -16,16 +16,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: PaymentPage(
-        transaction: Transaction(
-          id: 1,
-          food: Foods[1],
-          quantity: 5,
-          total: (Foods[1].price! * 5 * 1.1).toInt() + 50000,
-          dateTime: DateTime.now(),
-          status: TransactionStatus.pending,
-          user: mockUser,
-        ),
+      home: IlustrationPage(
+        title: 'Find your favorite food',
+        subtitle: 'Lets discover the best food in your city',
+        picturepath: 'assets/love_burger.png',
+        buttontap1: () {},
+        buttontitle1: "Find best meal",
       ),
       debugShowCheckedModeBanner: false,
     );

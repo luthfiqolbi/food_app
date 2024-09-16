@@ -313,6 +313,7 @@ class PaymentPage extends StatelessWidget {
                   ],
                 ),
                 Container(
+                  width: double.infinity,
                   margin: EdgeInsets.only(top: 12),
                   height: 45,
                   child: ElevatedButton(
