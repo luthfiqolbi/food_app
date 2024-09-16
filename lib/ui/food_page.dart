@@ -12,6 +12,9 @@ class _FoodPageState extends State<FoodPage> {
 
   @override
   Widget build(BuildContext context) {
+
+    double listItemWidth = MediaQuery.of(context).size.width - 2 * defaultMargin;
+
     return ListView(
       children: [
         //header
@@ -62,9 +65,61 @@ class _FoodPageState extends State<FoodPage> {
           ),
           child: ListView(
             scrollDirection: Axis.horizontal,
+            children: Foods.map((food) => Padding(
+                  padding: EdgeInsets.only(
+                      left: (food == Foods.first) ? defaultMargin : 0,
+                      right: defaultMargin),
+                  child: FoodCard(
+                    food: food,
+                  ),
+                )).toList(),
           ),
         ),
         //tab layout
+        Container(
+          width: double.infinity,
+          color: Colors.white,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              CustomTabBar(
+                selectedIndex: selectedIndex,
+                titles: [
+                  'New Taste',
+                  'Popular',
+                  'Recommended',
+                ],
+                onTap: (index) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+              ),
+              SizedBox(height: 20,),
+              Builder(builder: (_) {
+                List<Food> foods = (selectedIndex == 0)
+                    ? Foods
+                    : (selectedIndex == 1)
+                        ? []
+                        : [];
+                return Column(
+                  children: foods
+                      .map(
+                        (e) => Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: FoodListItem(
+                            food: e,
+                            itemwidth: listItemWidth,
+                          ),
+                        ),
+                      )
+                      .toList(),
+                );
+              }),
+              SizedBox(height: 80,)
+            ],
+          ),
+        ),
       ],
     );
   }

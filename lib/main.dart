@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/model/models.dart';
 import 'package:food_app/ui/pages.dart';
 import 'package:get/get.dart';
 
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: MainPage(),
+      home: DetailPage(onBackButtonPressed: (){}, food: Foods[1]),
       debugShowCheckedModeBanner: false,
     );
   }
