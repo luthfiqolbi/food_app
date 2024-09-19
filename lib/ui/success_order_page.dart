@@ -6,12 +6,12 @@ class SuccessOrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IlustrationPage(
-      title: 'You,ve made Order',
+      title: 'Other Foods are on the way',
       subtitle: 'Just stay at home while we are preparing your best food',
       picturepath: 'assets/bike.png',
       buttontap1: (){},
-      buttontitle1: 'View My Order',
       buttontap2: (){},
+      buttontitle1: 'View My Order',
       buttontitle2: 'View My Order',
     );
   }
