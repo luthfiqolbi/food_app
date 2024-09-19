@@ -18,3 +18,5 @@ part 'food_page.dart';
 part 'detail_page.dart';
 part 'payment_page.dart';
 part 'ilustration_page.dart';
+part 'order_history_page.dart';
+part 'success_order_page.dart';

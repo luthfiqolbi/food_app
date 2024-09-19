@@ -16,13 +16,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(),
-      home: IlustrationPage(
-        title: 'Find your favorite food',
-        subtitle: 'Lets discover the best food in your city',
-        picturepath: 'assets/love_burger.png',
-        buttontap1: () {},
-        buttontitle1: "Find best meal",
-      ),
+      home: MainPage(),
       debugShowCheckedModeBanner: false,
     );
   }

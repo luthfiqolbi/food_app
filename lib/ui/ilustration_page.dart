@@ -65,8 +65,11 @@ class IlustrationPage extends StatelessWidget {
             ),
             (buttontap2 == null)
                 ? SizedBox()
-                : Text(
-                    buttontitle2 ?? "change me",
+                : ElevatedButton(
+                    onPressed: () {
+                      buttontap2!();
+                    },
+                    child: Text(buttontitle2!),
                   ),
           ],
         ),
