@@ -81,10 +81,7 @@ class _SignInPageState extends State<SignInPage> {
               margin: EdgeInsets.only(top: 24),
               padding: EdgeInsets.symmetric(horizontal: defaultMargin),
               child: isLoading
-                  ? SpinKitFadingCircle(
-                      size: 45,
-                      color: MainColor,
-                    )
+                  ? loadingIndicator
                   : ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: MainColor,
@@ -92,8 +89,46 @@ class _SignInPageState extends State<SignInPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      onPressed: () {},
-                      child: Text("Login",
+                      onPressed: () async {
+                        setState(() {
+                          isLoading = true;
+                        });
+
+                        await context.read<UserCubit>().signIn(
+                              emailController.text,
+                              passwordController.text,
+                            );
+                        UserState state = context.read<UserCubit>().state;
+
+                        if (state is UserLoaded) {
+                          context.read<FoodCubit>().getFoods();
+                          context.read<TransactionCubit>().getTransaction();
+                          Get.to(() => MainPage());
+                        } else {
+                          Get.snackbar("", "",
+                              backgroundColor: "D9435E".toColor(),
+                              icon: Icon(
+                                MdiIcons.closeCircleOutline,
+                                color: Colors.white,
+                              ),
+                              titleText: Text(
+                                'Sign In Failed',
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              messageText: Text(
+                                "Please try again later",
+                                style: GoogleFonts.poppins(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ));
+                        }
+                      },
+                      child: Text(
+                        "Login",
                         style: blackFontStyle3.copyWith(color: Colors.white),
                       ),
                     ),
@@ -105,23 +140,24 @@ class _SignInPageState extends State<SignInPage> {
               padding: EdgeInsets.symmetric(horizontal: defaultMargin),
               child: isLoading
                   ? SpinKitFadingCircle(
-                size: 45,
-                color: greyColor,
-              )
+                      size: 45,
+                      color: greyColor,
+                    )
                   : ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: greyColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-                onPressed: () {
-                  Get.to(() => SignUpPage());
-                },
-                child: Text("Create Account",
-                  style: blackFontStyle3.copyWith(color: Colors.white),
-                ),
-              ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: greyColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {
+                        Get.to(() => SignUpPage());
+                      },
+                      child: Text(
+                        "Create Account",
+                        style: blackFontStyle3.copyWith(color: Colors.white),
+                      ),
+                    ),
             ),
           ],
         ),
