@@ -2,10 +2,10 @@ part of 'pages.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage(
-      {super.key, required this.onBackButtonPressed, required this.food});
+      {super.key, required this.onBackButtonPressed, this.transaction});
 
   final Function onBackButtonPressed;
-  final Food food;
+  final Transaction? transaction;
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -32,8 +32,8 @@ class _DetailPageState extends State<DetailPage> {
               height: 300,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(widget.food?.picturePath ??
-                      'https://ui-avatars.com/api/?name=${widget.food!.name}'),
+                  image: NetworkImage(widget.transaction?.food?.picturePath ??
+                      'https://ui-avatars.com/api/?name=${widget.transaction!.food!.name}'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -92,7 +92,7 @@ class _DetailPageState extends State<DetailPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '${widget.food.name}',
+                                '${widget.transaction?.food?.name}',
                                 style: blackFontStyle2,
                                 maxLines: 2,
                               ),
@@ -100,7 +100,7 @@ class _DetailPageState extends State<DetailPage> {
                                 height: 10,
                               ),
                               RatingStars(
-                                rate: widget.food.rate,
+                                rate: widget.transaction?.food?.rate,
                               ),
                             ],
                           ),
@@ -158,7 +158,7 @@ class _DetailPageState extends State<DetailPage> {
                       Container(
                         margin: EdgeInsets.fromLTRB(0, 14, 0, 16),
                         child: Text(
-                          widget.food!.description!,
+                          widget.transaction!.food!.description!,
                           style: blackFontStyle3,
                           textAlign: TextAlign.justify,
                         ),
@@ -179,7 +179,7 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                       Container(
                         margin: EdgeInsets.fromLTRB(0, 4, 0, 16),
-                        child: Text(widget.food!.ingredients!),
+                        child: Text(widget.transaction!.food!.ingredients! ?? ''),
                       ),
                       // total price
                       Container(
@@ -205,7 +205,7 @@ class _DetailPageState extends State<DetailPage> {
                                       decimalDigits: 0,
                                       locale: 'id_ID')
                                   .format(
-                                quantity * widget.food!.price!,
+                                quantity * (widget.transaction?.food?.price?.toInt() ?? 0),
                               ),
                             ),
                           ],
