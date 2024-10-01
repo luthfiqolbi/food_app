@@ -179,7 +179,8 @@ class _DetailPageState extends State<DetailPage> {
                       ),
                       Container(
                         margin: EdgeInsets.fromLTRB(0, 4, 0, 16),
-                        child: Text(widget.transaction!.food!.ingredients! ?? ''),
+                        child:
+                            Text(widget.transaction!.food!.ingredients! ?? ''),
                       ),
                       // total price
                       Container(
@@ -205,7 +206,9 @@ class _DetailPageState extends State<DetailPage> {
                                       decimalDigits: 0,
                                       locale: 'id_ID')
                                   .format(
-                                quantity * (widget.transaction?.food?.price?.toInt() ?? 0),
+                                quantity *
+                                    (widget.transaction?.food?.price?.toInt() ??
+                                        0),
                               ),
                             ),
                           ],
@@ -225,7 +228,19 @@ class _DetailPageState extends State<DetailPage> {
                               borderRadius: BorderRadius.circular(15),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            Get.to(
+                              PaymentPage(
+                                transaction: widget.transaction!.copywith(
+                                  quantity: quantity,
+                                  total: quantity *
+                                      (widget.transaction?.food?.price
+                                              ?.toInt() ??
+                                          0),
+                                ),
+                              ),
+                            );
+                          },
                           child: Text(
                             'Order Now',
                             style: blackFontStyle2.copyWith(

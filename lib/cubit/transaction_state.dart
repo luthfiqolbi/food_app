@@ -10,7 +10,7 @@ final class TransactionInitial extends TransactionState {
 }
 
 final class TransactionLoaded extends TransactionState{
-  final List<Transition> transaction;
+  final List<Transaction> transaction;
 
   TransactionLoaded(this.transaction);
 

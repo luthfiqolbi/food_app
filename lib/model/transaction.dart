@@ -25,10 +25,9 @@ class Transaction extends Equatable {
     int? id,
     Food? food,
     int? quantity,
-    int? total,
     DateTime? dateTime,
     TransactionStatus? status,
-    User? user,
+    User? user, required int total,
 }) {
     return Transaction(
       id:id ?? this.id,
