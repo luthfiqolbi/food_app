@@ -9,6 +9,7 @@ class User extends Equatable{
   final String? phoneNumber;
   final String? city;
   final String? picturepath;
+  static String? token;
 
   User({
     this.id,
@@ -20,6 +21,39 @@ class User extends Equatable{
     this.city,
     this.picturepath,
 });
+
+  User copywith({
+    int? id,
+    String? name,
+    String? email,
+    String? address,
+    String? houseNumber,
+    String? phoneNumber,
+    String? city,
+    String? picturepath,
+}) {
+    return User (
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      address: address?? this.address,
+      houseNumber: houseNumber ?? this.houseNumber,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      city: city ?? this.city,
+      picturepath: picturepath ?? this.picturepath,
+    );
+  }
+
+  factory User.fromjson(Map<String, dynamic> data) => User(
+    id: data['id'],
+    name: data['name'],
+    email: data['email'],
+    address: data['address'],
+    houseNumber: data['houseNumber'],
+    phoneNumber: data['phoneNumber'],
+    city: data['city'],
+    picturepath: data['profile_photo_url'],
+  );
 
   @override
   // TODO: implement props
