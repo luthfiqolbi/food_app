@@ -74,9 +74,14 @@ class UserServices {
 
     if(pictureFile != null) {
       ApiReturnValue<String> result = await uploadPicturePath(pictureFile);
+
+      if(result.value != null) {
+        value = value.copywith(picturepath: "https://food.rtid73.com/storage/${result.value}");
+      }
+
     }
 
-    return ApiReturnValue();
+    return ApiReturnValue(value: value);
   }
 
   static Future<ApiReturnValue<String>> uploadPicturePath(
