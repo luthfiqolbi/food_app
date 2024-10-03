@@ -69,7 +69,7 @@ class UserServices {
 
     var data = jsonDecode(response.body);
 
-    User.token = data['data']['token'];
+    User.token = data['data']['access_token'];
     User value = User.fromjson(data['data']['user']);
 
     if(pictureFile != null) {
