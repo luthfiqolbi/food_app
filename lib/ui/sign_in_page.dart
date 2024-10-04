@@ -125,6 +125,9 @@ class _SignInPageState extends State<SignInPage> {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ));
+                          setState(() {
+                            isLoading = false;
+                          });
                         }
                       },
                       child: Text(

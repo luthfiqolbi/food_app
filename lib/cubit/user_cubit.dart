@@ -24,7 +24,7 @@ class UserCubit extends Cubit<UserState> {
     ApiReturnValue<User> result =
         await UserServices.signUp(user, password, pictureFile: pictureFile);
 
-    if(result.value != null){
+    if (result.value != null) {
       emit(UserLoaded(result.value!));
     } else {
       emit(UserLoadingFailed(result.message!));
@@ -32,11 +32,17 @@ class UserCubit extends Cubit<UserState> {
   }
 
   Future<void> uploadProfilePicture(File pictureFile) async {
-      ApiReturnValue<String> result = await UserServices.uploadPicturePath(pictureFile);
+    ApiReturnValue<String> result =
+        await UserServices.uploadPicturePath(pictureFile);
 
-      if(result != null) {
-        
-      }
+    if (result.value != null) {
+      emit(
+        UserLoaded(
+          (state as UserLoaded).user.copywith(
+              picturepath: 'https://food.rtid73.com/storage/${result.value}'),
+        ),
+      );
+    } else {}
   }
 
   Future<void> signOut() async {

@@ -45,7 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage(
-                      'assets/images/photo_border.png',
+                      'assets/photo_border.png',
                     ),
                   ),
                 ),

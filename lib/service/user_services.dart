@@ -24,7 +24,7 @@ class UserServices {
 
     var data = jsonDecode(response.body);
 
-    User.token = data['data']['token'];
+    User.token = data['data']['access_token'];
     User value = User.fromjson(data['data']['user']);
 
     return ApiReturnValue(value: value);
@@ -51,16 +51,18 @@ class UserServices {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: {
-        'name ': user.name,
-        'email ': user.email,
-        'password ': password,
-        'password_confirmation ': password,
-        'address ': user.address,
-        'city ': user.city,
-        'houseNumber ': user.houseNumber,
-        'phoneNumber ': user.phoneNumber,
-      },
+      body: jsonEncode(
+        <String, String>{
+          'name': user.name!,
+          'email': user.email!,
+          'password': password,
+          'password_confirmation': password,
+          'address': user.address!,
+          'city': user.city!,
+          'houseNumber': user.houseNumber!,
+          'phoneNumber': user.phoneNumber!,
+        },
+      ),
     );
 
     if (response.statusCode != 200) {
@@ -72,27 +74,27 @@ class UserServices {
     User.token = data['data']['access_token'];
     User value = User.fromjson(data['data']['user']);
 
-    if(pictureFile != null) {
+    if (pictureFile != null) {
       ApiReturnValue<String> result = await uploadPicturePath(pictureFile);
 
-      if(result.value != null) {
-        value = value.copywith(picturepath: "https://food.rtid73.com/storage/${result.value}");
+      if (result.value != null) {
+        value = value.copywith(
+            picturepath: "https://food.rtid73.com/storage/${result.value}");
       }
-
     }
 
     return ApiReturnValue(value: value);
   }
 
-  static Future<ApiReturnValue<String>> uploadPicturePath(
-      File pictureFile, {http.MultipartRequest? request}) async {
+  static Future<ApiReturnValue<String>> uploadPicturePath(File pictureFile,
+      {http.MultipartRequest? request}) async {
     String url = baseURL + '/user/photo';
 
     var uri = Uri.parse(url);
 
     if (request == null) {
       request = http.MultipartRequest("POST", uri)
-        ..headers['Content=Type'] = 'application/json'
+        ..headers['Content-Type'] = 'application/json'
         ..headers['Authorization'] = 'Bearer ${User.token}';
     }
 

@@ -204,7 +204,7 @@ class _AddressPageState extends State<AddressPage> {
                       ),
                     ),
                     onPressed: () async {
-                      User user = widget.user!.copywith(
+                      User user = widget.user.copywith(
                           address: addressController.text,
                           phoneNumber: phoneNumberController.text,
                           houseNumber: houseNumberController.text,
