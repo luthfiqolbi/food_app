@@ -27,7 +27,7 @@ class TransactionCubit extends Cubit<TransactionState> {
       emit(TransactionLoaded(
         (state as TransactionLoaded).transaction + [result.value!],
       ));
-      return result.value!.paymentUrl;
+      return result.value!.paymentUrl!;
     } else {
       return null;
     }

@@ -11,6 +11,7 @@ class PaymentPage extends StatefulWidget {
 
 class _PaymentPageState extends State<PaymentPage> {
   bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return GeneralPage(
@@ -77,9 +78,7 @@ class _PaymentPageState extends State<PaymentPage> {
                             symbol: 'IDR',
                             decimalDigits: 0,
                             locale: 'id_ID',
-                          ).format(
-                            widget.transaction.food!.price!,
-                          ),
+                          ).format(widget.transaction.food!.price),
                         ),
                       ],
                     ),
@@ -124,7 +123,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         decimalDigits: 0,
                         locale: 'id_ID',
                       ).format(
-                        widget.transaction.food!.price!,
+                        widget.transaction.food!.price,
                       ),
                     ),
                   ],

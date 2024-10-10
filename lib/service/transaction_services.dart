@@ -34,6 +34,7 @@ class TransactionServices {
   static Future<ApiReturnValue<Transaction>> submitTransaction(
       Transaction transaction,
       {http.Client? client}) async {
+
     client ??= http.Client();
 
     String url = baseURL + '/checkout';
