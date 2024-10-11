@@ -8,80 +8,139 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
-  int selectedIndex = 0;
-  List<Transaction> inProgess = mockTransaction
-      .where((e) =>
-  e.status == TransactionStatus.on_delivery ||
-      e.status == TransactionStatus.pending)
-      .toList();
-  List<Transaction> past = mockTransaction
-      .where((e) =>
-  e.status == TransactionStatus.canceled ||
-      e.status == TransactionStatus.delivered)
-      .toList();
+  int selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
-
-    double listItemWidth = MediaQuery.of(context).size.width - 2 * defaultMargin;
-
-    return Scaffold(
-      body: Column(
-        children: [
-          Container(
-            width: 110,
-            height: 110,
-            margin: EdgeInsets.only(top: 26),
-            padding: EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/photo_border.png'),
-              ),
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
+    return ListView(
+      children: [
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: defaultMargin),
+          margin: const EdgeInsets.only(bottom: defaultMargin),
+          width: double.infinity,
+          color: Colors.black,
+          child: Column(
+            children: [
+              Container(
+                width: 100,
+                height: 100,
+                margin: const EdgeInsets.only(bottom: defaultMargin),
+                decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: NetworkImage(
-                        'assets/qo.jpg'),
-                    fit: BoxFit.cover,
-                  )),
-            ),
-          ),
-          Container(
-            width: double.infinity,
-            color: Colors.white,
-            child: Column(
-              children: [
-                CustomTabBar(
-                  selectedIndex: selectedIndex,
-                  titles: ['In Progress', 'Past Orders'],
-                  onTap: (index) {
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                  },
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                Column(
-                  children: (selectedIndex == 0 ? inProgess : past)
-                      .map((e) => Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: OrderListItem(
-                      transaction: e,
-                      itemWidth: listItemWidth,
+                    image: AssetImage(
+                      "assets/photo_border.png",
                     ),
-                  ))
-                      .toList(),
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ],
-            ),
+                child: Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  margin: const EdgeInsets.all(8),
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage(
+                          "assets/photo.png",
+                        ),
+                        fit: BoxFit.cover),
+                  ),
+                ),
+              ),
+              Text(
+                mockUser.name ?? "name",
+                style: heading1.copyWith(
+                  color: mainColor,
+                ),
+              ),
+              Text(
+                mockUser.email ?? "email",
+                style: heading2.copyWith(),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        Container(
+          color: Colors.black,
+          height: MediaQuery.of(context).size.height - 320,
+          padding: const EdgeInsets.all(defaultMargin),
+          child: Column(
+            children: [
+              Tabbar(
+                selectedIndex: selectedIndex,
+                titles: const ["Account", "Food Market"],
+                onTap: (index) {
+                  setState(() {
+                    selectedIndex = index;
+                  });
+                },
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              (selectedIndex == 0) ? const AccountTab() : const FoodMarketTab(),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class AccountTab extends StatelessWidget {
+  const AccountTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        RowTab(title: 'Edit Profile'),
+        RowTab(title: 'Home Address'),
+        RowTab(title: 'Security'),
+        RowTab(title: 'Payments'),
+        RowTab(title: 'Sign Out'),
+      ],
+    );
+  }
+}
+
+class FoodMarketTab extends StatelessWidget {
+  const FoodMarketTab({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Column(
+      children: [
+        RowTab(title: 'Rate App'),
+        RowTab(title: 'Help Center'),
+        RowTab(title: 'Privat & Policy'),
+        RowTab(title: 'Term & Conditions'),
+      ],
+    );
+  }
+}
+
+class RowTab extends StatelessWidget {
+  const RowTab({
+    super.key,
+    required this.title,
+  });
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: heading2,
+        ),
+        Icon(
+          MdiIcons.chevronRight,
+          color: whiteColor,
+          size: 40,
+        )
+      ],
     );
   }
 }

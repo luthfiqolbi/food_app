@@ -13,11 +13,10 @@ class _MainPageState extends State<MainPage> {
   int selectedPage = 0;
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     selectedPage = widget.initialPage;
-    pageController =
-        PageController(initialPage: widget.initialPage);
+    pageController = PageController(initialPage: widget.initialPage);
   }
 
   PageController pageController = PageController();
@@ -26,12 +25,12 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: <Widget>[
+        children: [
           Container(
-            color: Colors.white,
+            color: darkColor,
           ),
           Container(
-            color: 'FAFAFC'.toColor(),
+            color: '191919'.toColor(),
           ),
           SafeArea(
             child: PageView(
@@ -41,7 +40,7 @@ class _MainPageState extends State<MainPage> {
                   selectedPage = index;
                 });
               },
-              children: <Widget>[
+              children: const [
                 Center(
                   child: FoodPage(),
                 ),
@@ -56,7 +55,7 @@ class _MainPageState extends State<MainPage> {
           ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: CustomBottomNavbar(
+            child: BottomNavbar(
               selectedIndex: selectedPage,
               onTap: (int index) {
                 setState(() {
@@ -65,7 +64,7 @@ class _MainPageState extends State<MainPage> {
                 pageController.jumpToPage(selectedPage);
               },
             ),
-          ),
+          )
         ],
       ),
     );

@@ -9,21 +9,20 @@ final class FoodInitial extends FoodState {
   List<Object> get props => [];
 }
 
-final class FoodLoaded extends FoodState{
-  final List<Food> foods;
+final class FoodLoaded extends FoodState {
+  final List<Food> food;
 
-  FoodLoaded(this.foods);
+  const FoodLoaded(this.food);
 
   @override
-  List<Object?> get props => [foods];
+  List<Object?> get props => [food];
 }
 
-final class FoodLoadingFailed extends FoodState{
+final class FoodLoadingFailed extends FoodState {
   final String message;
 
-  FoodLoadingFailed(this.message);
+  const FoodLoadingFailed(this.message);
 
   @override
   List<Object?> get props => [message];
-
 }

@@ -1,50 +1,54 @@
 part of 'models.dart';
 
-class User extends Equatable{
+class User extends Equatable {
   final int? id;
   final String? name;
   final String? email;
+  final String? password;
   final String? address;
-  final String? houseNumber;
   final String? phoneNumber;
+  final String? houseNumber;
   final String? city;
-  final String? picturepath;
+  final String? picturePath;
   static String? token;
 
   User({
     this.id,
     this.name,
     this.email,
+    this.password,
     this.address,
-    this.houseNumber,
     this.phoneNumber,
+    this.houseNumber,
     this.city,
-    this.picturepath,
-});
+    this.picturePath,
+  });
 
-  User copywith({
+  User copyWith({
     int? id,
     String? name,
     String? email,
+    String? password,
     String? address,
-    String? houseNumber,
     String? phoneNumber,
+    String? houseNumber,
     String? city,
-    String? picturepath,
-}) {
-    return User (
+    String? picturePath,
+  }) {
+    return User(
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
-      address: address?? this.address,
-      houseNumber: houseNumber ?? this.houseNumber,
+      password: password ?? this.password,
+      address: address ?? this.address,
       phoneNumber: phoneNumber ?? this.phoneNumber,
+      houseNumber: houseNumber ?? this.houseNumber,
       city: city ?? this.city,
-      picturepath: picturepath ?? this.picturepath,
+      picturePath: picturePath ?? this.picturePath,
     );
   }
 
-  factory User.fromjson(Map<String, dynamic> data) => User(
+  factory User.fromJson(Map<String, dynamic> data) => User(
     id: data['id'],
     name: data['name'],
     email: data['email'],
@@ -52,30 +56,31 @@ class User extends Equatable{
     houseNumber: data['houseNumber'],
     phoneNumber: data['phoneNumber'],
     city: data['city'],
-    picturepath: data['profile_photo_url'],
+    picturePath: data['profile_photo_url'],
   );
 
   @override
-  // TODO: implement props
   List<Object?> get props => [
-    id,
-    name,
-    email,
-    address,
-    houseNumber,
-    phoneNumber,
-    city,
-    picturepath,
-  ];
+        id,
+        name,
+        email,
+        password,
+        address,
+        houseNumber,
+        phoneNumber,
+        city,
+        picturePath,
+      ];
 }
 
 User mockUser = User(
-  id: 1,
-  name: 'Luthfi',
-  email: 'luthfi06@gmail.com',
-  address: 'JL.Setia Budi',
-  houseNumber: 'A1',
-  phoneNumber: '081218147867',
-  city: 'Jakarta',
-  picturepath: 'https://i.pinimg.com/474x/e0/e7/71/e0e771441c61d57a0e27b6c53bea6584.jpg',
-);
+    id: 1,
+    name: 'Musalim Ucup',
+    email: 'ucupweb@gmail.com',
+    password: "12345678",
+    address: 'Jl, Setiabudi No. 193',
+    houseNumber: 'A2',
+    phoneNumber: '08123456789',
+    city: 'Batam',
+    picturePath:
+        "https://i.pinimg.com/474x/24/f7/d2/24f7d287c96762cb40a3683809d8200a.jpg");

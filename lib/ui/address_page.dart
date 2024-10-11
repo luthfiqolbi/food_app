@@ -1,11 +1,12 @@
 part of 'pages.dart';
 
 class AddressPage extends StatefulWidget {
-  const AddressPage(
-      {super.key,
-      required this.user,
-      required this.password,
-      required this.pictureFile});
+  const AddressPage({
+    super.key,
+    required this.user,
+    required this.password,
+    required this.pictureFile,
+  });
 
   final User user;
   final String password;
@@ -26,146 +27,156 @@ class _AddressPageState extends State<AddressPage> {
 
   @override
   void initState() {
-    cities = ['Bandung', 'Jakarta', 'Bogor'];
+    cities = ['Bandung', 'Jakarta', 'Surabaya'];
     selectedCity = cities![0];
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return GeneralPage(
-      title: "Profile",
+    return GeneralPages(
+      title: "Address",
       subtitle: "Make sure it's valid",
-      onBackButtonPressed: () {
+      onBackButtonPresses: () {
         Get.back();
       },
       child: Column(
-        children: <Widget>[
-          //Text address
+        children: [
+          // text address
           Container(
             width: double.infinity,
-            margin: EdgeInsets.fromLTRB(defaultMargin, 26, defaultMargin, 6),
+            margin:
+                const EdgeInsets.fromLTRB(defaultMargin, 26, defaultMargin, 6),
             child: Text(
-              'Address',
-              style: blackFontStyle2,
+              "Address",
+              style: heading2,
             ),
           ),
-          //field address
+          // field addredd
           Container(
             width: double.infinity,
-            margin: EdgeInsets.symmetric(
-              horizontal: 15,
+            margin: const EdgeInsets.symmetric(
+              horizontal: 10,
             ),
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 10,
             ),
             decoration: BoxDecoration(
+              color: darkColor,
               borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
               border: Border.all(
-                color: Colors.black,
+                color: whiteColor,
               ),
             ),
             child: TextField(
               controller: addressController,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'Type your address',
+                hintText: "Type Your Address",
                 hintStyle: greyFontStyle,
               ),
+              style: heading3,
+              cursorColor: whiteColor,
             ),
           ),
-          //phone number
+          // text phone number
           Container(
             width: double.infinity,
-            margin: EdgeInsets.fromLTRB(defaultMargin, 6, defaultMargin, 6),
+            margin:
+                const EdgeInsets.fromLTRB(defaultMargin, 10, defaultMargin, 6),
             child: Text(
-              'Phone Number',
-              style: blackFontStyle2,
+              "Phone Number",
+              style: heading2,
             ),
           ),
-          //field phone number
+          // field phone number
           Container(
             width: double.infinity,
-            margin: EdgeInsets.symmetric(
-              horizontal: 15,
+            margin: const EdgeInsets.symmetric(
+              horizontal: 10,
             ),
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 10,
             ),
             decoration: BoxDecoration(
+              color: darkColor,
               borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
               border: Border.all(
-                color: Colors.black,
+                color: whiteColor,
               ),
             ),
             child: TextField(
               controller: phoneNumberController,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'Type your phone number',
+                hintText: "Type Your Phone Number",
                 hintStyle: greyFontStyle,
               ),
+              style: heading3,
+              cursorColor: whiteColor,
             ),
           ),
-          // house number
+          // text house number
           Container(
             width: double.infinity,
-            margin: EdgeInsets.fromLTRB(defaultMargin, 6, defaultMargin, 6),
+            margin:
+                const EdgeInsets.fromLTRB(defaultMargin, 10, defaultMargin, 6),
             child: Text(
-              'House Number',
-              style: blackFontStyle2,
+              "House Number",
+              style: heading2,
             ),
           ),
-          //field house number
+          // field house number
           Container(
             width: double.infinity,
-            margin: EdgeInsets.symmetric(
-              horizontal: 15,
+            margin: const EdgeInsets.symmetric(
+              horizontal: 10,
             ),
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 10,
             ),
             decoration: BoxDecoration(
+              color: darkColor,
               borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
               border: Border.all(
-                color: Colors.black,
+                color: whiteColor,
               ),
             ),
             child: TextField(
               controller: houseNumberController,
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'Type your house number',
+                hintText: "Type Your House Number",
                 hintStyle: greyFontStyle,
               ),
+              style: heading3,
+              cursorColor: whiteColor,
             ),
           ),
-          //
+          // text city
           Container(
             width: double.infinity,
-            margin: EdgeInsets.fromLTRB(defaultMargin, 6, defaultMargin, 6),
+            margin:
+                const EdgeInsets.fromLTRB(defaultMargin, 10, defaultMargin, 6),
             child: Text(
-              'City',
-              style: blackFontStyle2,
+              "City",
+              style: heading2,
             ),
           ),
-          //
+          // city dropdown
           Container(
             width: double.infinity,
-            margin: EdgeInsets.symmetric(
-              horizontal: 15,
+            margin: const EdgeInsets.symmetric(
+              horizontal: 10,
             ),
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: 10,
             ),
             decoration: BoxDecoration(
+              color: darkColor,
               borderRadius: BorderRadius.circular(10),
-              color: Colors.white,
               border: Border.all(
-                color: Colors.black,
+                color: whiteColor,
               ),
             ),
             child: DropdownButton(
@@ -173,8 +184,11 @@ class _AddressPageState extends State<AddressPage> {
               items: cities!
                   .map(
                     (e) => DropdownMenuItem(
-                      child: Text(e),
                       value: e,
+                      child: Text(
+                        e,
+                        style: heading3,
+                      ),
                     ),
                   )
                   .toList(),
@@ -184,76 +198,89 @@ class _AddressPageState extends State<AddressPage> {
                 });
               },
               isExpanded: true,
-              underline: SizedBox(),
+              underline: const SizedBox(),
+              dropdownColor: darkColor,
+              style: heading3,
             ),
           ),
-          Container(
-            width: double.infinity,
-            height: 45,
-            margin: EdgeInsets.only(top: 24),
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            child: (isLoading == true)
-                ? loadingIndicator
-                : ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: MainColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          10,
-                        ),
-                      ),
-                    ),
-                    onPressed: () async {
-                      User user = widget.user.copywith(
-                          address: addressController.text,
-                          phoneNumber: phoneNumberController.text,
-                          houseNumber: houseNumberController.text,
-                          city: selectedCity);
-
-                      setState(() {
-                        isLoading = true;
-                      });
-
-                      await context.read<UserCubit>().signUp(
-                            user,
-                            widget.password,
-                            pictureFile: widget.pictureFile,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(
+                  top: 10,
+                  right: 10,
+                ),
+                child: (isLoading == true)
+                    ? loadingIndicator
+                    : ElevatedButton(
+                        onPressed: () async {
+                          User user = widget.user.copyWith(
+                            address: addressController.text,
+                            phoneNumber: phoneNumberController.text,
+                            houseNumber: houseNumberController.text,
+                            city: selectedCity,
                           );
 
-                      UserState state = context.read<UserCubit>().state;
+                          setState(() {
+                            isLoading = true;
+                          });
 
-                      if (state is UserLoaded) {
-                        context.read<FoodCubit>().getFoods();
-                        context.read<TransactionCubit>().getTransaction();
-                        Get.to(() => MainPage());
-                      } else {
-                        Get.snackbar("", "",
-                            backgroundColor: "D9435E".toColor(),
-                            icon: Icon(
-                              MdiIcons.closeCircleOutline,
-                              color: Colors.white,
-                            ),
-                            titleText: Text(
-                              'Sign In Failed',
-                              style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
+                          // Simulasi penundaan (hanya untuk pengujian, bisa dihapus)
+                          await Future.delayed(const Duration(seconds: 2));
+
+                          // memanggil fungsi signup
+                          await context.read<UserCubit>().signUp(
+                                user,
+                                widget.password,
+                                pictureFile: widget.pictureFile,
+                              );
+
+                          // mendapatkan state setelah signup
+                          UserState state = context.read<UserCubit>().state;
+
+                          // memeriksa stutus
+                          if (state is UserLoaded) {
+                            context.read<FoodCubit>().getFoods();
+                            context.read<TransactionCubit>().getTransactions();
+                            Get.to(() => MainPage());
+                          } else {
+                            Get.snackbar(
+                              "",
+                              "",
+                              backgroundColor: Colors.black,
+                              icon: Icon(
+                                MdiIcons.closeCircleOutline,
+                                color: whiteColor,
                               ),
-                            ),
-                            messageText: Text(
-                              "Please try again later",
-                              style: GoogleFonts.poppins(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
+                              titleText: Text(
+                                "Sign In Failed",
+                                style: heading1,
                               ),
-                            ));
-                      }
-                    },
-                    child: Text(
-                      'Cretae Account',
-                      style: blackFontStyle3.copyWith(color: Colors.white),
-                    ),
-                  ),
+                              messageText: Text(
+                                'Please Try Again Later',
+                                style: heading3,
+                              ),
+                            );
+                          }
+
+                          setState(() {
+                            isLoading = false;
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: mainColor,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        child: Text(
+                          "Create Account",
+                          style: heading3,
+                        ),
+                      ),
+              ),
+            ],
           ),
         ],
       ),

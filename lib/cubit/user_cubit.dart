@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_app/model/models.dart';
-import 'package:food_app/service/services.dart';
+import 'package:food_app/services/services.dart';
 
 part 'user_state.dart';
 
@@ -11,7 +11,7 @@ class UserCubit extends Cubit<UserState> {
   UserCubit() : super(UserInitial());
 
   Future<void> signIn(String email, String password) async {
-    ApiReturnValue<User> result = await UserServices.signIn(email, password);
+    ApiReturnValue<User> result = await UserService.signin(email, password);
 
     if (result.value != null) {
       emit(UserLoaded(result.value!));
@@ -22,7 +22,7 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> signUp(User user, String password, {File? pictureFile}) async {
     ApiReturnValue<User> result =
-        await UserServices.signUp(user, password, pictureFile: pictureFile);
+        await UserService.signUp(user, password, pictureFile: pictureFile);
 
     if (result.value != null) {
       emit(UserLoaded(result.value!));
@@ -31,21 +31,27 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
-  Future<void> uploadProfilePicture(File pictureFile) async {
+  Future<void> uploadProfilePicture(File picture) async {
     ApiReturnValue<String> result =
-        await UserServices.uploadPicturePath(pictureFile);
+        await UserService.uploadPicturePath(picture);
 
     if (result.value != null) {
       emit(
         UserLoaded(
-          (state as UserLoaded).user.copywith(
-              picturepath: 'https://food.rtid73.com/storage/${result.value}'),
+          (state as UserLoaded).user.copyWith(
+              picturePath: 'http://food.rtid73.com/storage/${result.value}'),
         ),
       );
     } else {}
   }
 
   Future<void> signOut() async {
-    emit(UserInitial());
+    ApiReturnValue<bool> result = await UserService.logout();
+
+    if(result.value != null) {
+      emit(UserInitial());
+    } else {
+      emit(UserLoadingFailed(result.message!));
+    }
   }
 }

@@ -1,26 +1,21 @@
 part of 'pages.dart';
 
 class PaymentMethodPage extends StatelessWidget {
-  const PaymentMethodPage({super.key, required this.paymentURL});
+  const PaymentMethodPage({
+    super.key,
+    required this.paymentUrl,
+  });
 
-  final String paymentURL;
+  final String paymentUrl;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IlustrationPage(
-        title: 'Finish Your Payment',
-        subtitle: 'please select your favorite payment method',
-        picturepath: 'assets/Payment.png',
-        buttontitle1: 'Payment Method',
-        buttontap1: () async {
-          await launch(paymentURL);
-        },
-        buttontap2: () {
-          Get.to(SuccessOrderPage());
-        },
-        buttontitle2: 'Continue',
-      ),
+      body: Center(
+        child: ElevatedButton(onPressed: (){
+          launch(paymentUrl);
+        }, child: Text('data')),
+      )
     );
   }
 }

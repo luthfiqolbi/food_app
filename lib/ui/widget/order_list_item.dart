@@ -1,8 +1,11 @@
 part of 'widgets.dart';
 
 class OrderListItem extends StatelessWidget {
-  const OrderListItem(
-      {super.key, required this.transaction, required this.itemWidth});
+  const OrderListItem({
+    super.key,
+    required this.transaction,
+    required this.itemWidth,
+  });
 
   final Transaction transaction;
   final double itemWidth;
@@ -10,89 +13,76 @@ class OrderListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Container(
-          height: 80,
           width: 80,
-          margin: EdgeInsets.only(right: 12),
+          height: 80,
+          margin: const EdgeInsets.only(
+            right: 12,
+          ),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: NetworkImage(transaction.food!.picturePath ??
-                  'https://ui-avatars.com/api/?name=${transaction.food?.name}'),
+              image: NetworkImage(transaction.food?.picturePath ??
+                  'https://ui-avatars.com/api/?background=random?name=${transaction.food?.name}'),
               fit: BoxFit.cover,
             ),
           ),
         ),
         SizedBox(
-          width: itemWidth! - 182,
+          width: itemWidth - 170,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                transaction.food?.name ?? 'No Name',
-                style: blackFontStyle2,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
+                transaction.food?.name ?? 'Food Name',
+                style: heading2,
               ),
               Row(
                 children: [
-                  Text(transaction.quantity.toString() + ' item(s) ~ '),
+                  Text(
+                    "${transaction.quantity.toString()} item(s) ~ ",
+                    style: greyFontStyle,
+                  ),
                   Text(
                     NumberFormat.currency(
-                      symbol: 'IDR',
-                      decimalDigits: 0,
-                      locale: 'id-ID',
-                    ).format(transaction.total),
+                            symbol: 'IDR ', decimalDigits: 0, locale: 'id-ID')
+                        .format(transaction.total),
+                    style: greyFontStyle,
                   ),
                 ],
               ),
             ],
           ),
         ),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(convertDatetimeDisplay(transaction.dateTime!)),
-              (transaction.status == TransactionStatus.delivered)
-                  ? Text(
-                      'Delivered',
-                      style: blackFontStyle3.copyWith(
-                        color: Colors.green,
-                        fontSize: 12,
-                        letterSpacing: 1.5
-                      ),
-                    )
-                  : (transaction.status == TransactionStatus.canceled)
-                      ? Text(
-                          'Canceled',
-                          style: blackFontStyle3.copyWith(
-                            color: Colors.red,
-                            fontSize: 12,
-                            letterSpacing: 1.5
+        const Spacer(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              displayConvertDateTime(transaction.dateTime!),
+              style: heading3,
+            ),
+            (transaction.status == TransactionStatus.delivered)
+                ? Text(
+                    "Delivered",
+                    style: heading2.copyWith(color: Colors.green),
+                  )
+                : (transaction.status == TransactionStatus.on_delivery)
+                    ? Text(
+                        "On Delivery",
+                        style: heading2.copyWith(color: Colors.blue),
+                      )
+                    : (transaction.status == TransactionStatus.canceled)
+                        ? Text(
+                            "Canceled",
+                            style: heading2.copyWith(color: Colors.red),
+                          )
+                        : Text(
+                            "Pending",
+                            style: heading2.copyWith(color: Colors.yellow),
                           ),
-                        )
-                      : (transaction.status == TransactionStatus.pending)
-                          ? Text(
-                              'Pending',
-                              style: blackFontStyle3.copyWith(
-                                color: Colors.yellow,
-                                fontSize: 12,
-                                letterSpacing: 1.5
-                              ),
-                            )
-                          : Text(
-                              'On_Delivery',
-                              style: blackFontStyle3.copyWith(
-                                color: Colors.blue,
-                                fontSize: 12,
-                                letterSpacing: 1.5,
-                              ),
-                            ),
-            ],
-          ),
+          ],
         ),
       ],
     );

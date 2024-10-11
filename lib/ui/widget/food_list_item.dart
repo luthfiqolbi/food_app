@@ -1,50 +1,55 @@
 part of 'widgets.dart';
 
 class FoodListItem extends StatelessWidget {
-  const FoodListItem({super.key, this.food, this.itemwidth});
+  const FoodListItem({
+    super.key,
+    this.food,
+    this.itemWidth,
+  });
 
   final Food? food;
-  final double? itemwidth;
+  final double? itemWidth;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Container(
-          height: 80,
           width: 80,
-          margin: EdgeInsets.only(right: 12),
+          height: 80,
+          margin: const EdgeInsets.only(
+            right: 12,
+          ),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             image: DecorationImage(
-              image: NetworkImage(food!.picturePath ??
-                  'https://ui-avatars.com/api/?name=${food?.name}'),
+              image: NetworkImage(food?.picturePath ??
+                  'https://ui-avatars.com/api/?background=random?name=${food?.name}'),
               fit: BoxFit.cover,
             ),
           ),
         ),
         SizedBox(
-          width: itemwidth! - 182,
+          width: itemWidth! - 182,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                food?.name ?? 'No Name',
-                style: blackFontStyle2,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 1,
+                food?.name ?? 'Food Name',
+                style: heading2,
               ),
               Text(
                 NumberFormat.currency(
-                  symbol: 'IDR',
-                  decimalDigits: 0,
-                  locale: 'id-ID',
-                ).format(food?.price),
+                        symbol: 'IDR ', decimalDigits: 0, locale: 'id-ID')
+                    .format(food?.price),
+                style: greyFontStyle,
               ),
-              RatingStars(rate: food?.rate,)
             ],
           ),
-        )
+        ),
+        RatingStar(
+          rate: food?.rate ?? 0,
+        ),
       ],
     );
   }

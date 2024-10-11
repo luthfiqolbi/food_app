@@ -9,21 +9,20 @@ final class TransactionInitial extends TransactionState {
   List<Object> get props => [];
 }
 
-final class TransactionLoaded extends TransactionState{
+final class TransactionLoaded extends TransactionState {
   final List<Transaction> transaction;
 
-  TransactionLoaded(this.transaction);
+  const TransactionLoaded(this.transaction);
 
   @override
   List<Object?> get props => [transaction];
 }
 
-final class TransactionLoadingFailed extends TransactionState{
+final class TransactionLoadingFailed extends TransactionState {
   final String message;
 
-  TransactionLoadingFailed(this.message);
+  const TransactionLoadingFailed(this.message);
 
   @override
   List<Object?> get props => [message];
-
 }

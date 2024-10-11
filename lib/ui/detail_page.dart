@@ -1,8 +1,11 @@
 part of 'pages.dart';
 
 class DetailPage extends StatefulWidget {
-  const DetailPage(
-      {super.key, required this.onBackButtonPressed, this.transaction});
+  const DetailPage({
+    super.key,
+    required this.onBackButtonPressed,
+    this.transaction,
+  });
 
   final Function onBackButtonPressed;
   final Transaction? transaction;
@@ -13,17 +16,18 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   int quantity = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
           Container(
-            color: MainColor,
+            color: mainColor,
           ),
           SafeArea(
             child: Container(
-              color: Colors.white,
+              color: darkColor,
             ),
           ),
           SafeArea(
@@ -32,8 +36,8 @@ class _DetailPageState extends State<DetailPage> {
               height: 300,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(widget.transaction?.food?.picturePath ??
-                      'https://ui-avatars.com/api/?name=${widget.transaction!.food!.name}'),
+                  image: NetworkImage(widget.transaction!.food!.picturePath ??
+                      'https://ui-avatars.com/api/?name=${widget.transaction!.food!}'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -44,24 +48,23 @@ class _DetailPageState extends State<DetailPage> {
               children: [
                 Container(
                   height: 100,
-                  padding: EdgeInsets.symmetric(
+                  padding: const EdgeInsets.symmetric(
                     horizontal: defaultMargin,
                   ),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
                       onTap: () {
-                        if (widget.onBackButtonPressed != null) {
-                          widget.onBackButtonPressed();
-                        }
+                        if (widget.onBackButtonPressed != null)
+                          widget.onBackButtonPressed!();
                       },
                       child: Container(
-                        padding: EdgeInsets.all(3),
+                        padding: const EdgeInsets.all(3),
                         width: 30,
                         height: 30,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8.0),
-                          color: Colors.black12,
+                          borderRadius: BorderRadius.circular(8),
+                          color: Colors.white12,
                         ),
                         child: Image.asset('assets/back_arrow_white.png'),
                       ),
@@ -69,42 +72,43 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 180),
-                  padding: EdgeInsets.symmetric(
+                  margin: const EdgeInsets.only(top: 180),
+                  padding: const EdgeInsets.symmetric(
                     vertical: 26,
                     horizontal: 16,
                   ),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
                     ),
-                    color: Colors.white,
+                    color: "272727".toColor(),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Food Name
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${widget.transaction?.food?.name}',
-                                style: blackFontStyle2,
-                                maxLines: 2,
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              RatingStars(
-                                rate: widget.transaction?.food?.rate,
-                              ),
-                            ],
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.5,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${widget.transaction!.food!.name}",
+                                  style: heading2,
+                                  maxLines: 1,
+                                ),
+                                const SizedBox(
+                                  width: 24,
+                                ),
+                                RatingStar(
+                                  rate: widget.transaction!.food!.rate,
+                                ),
+                              ],
+                            ),
                           ),
-                          // Food quantity
                           Row(
                             children: [
                               GestureDetector(
@@ -116,7 +120,7 @@ class _DetailPageState extends State<DetailPage> {
                                 child: Container(
                                   width: 35,
                                   height: 35,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage('assets/btn_min.png'),
                                     ),
@@ -128,7 +132,7 @@ class _DetailPageState extends State<DetailPage> {
                                 child: Text(
                                   quantity.toString(),
                                   textAlign: TextAlign.center,
-                                  style: blackFontStyle3.copyWith(
+                                  style: heading3.copyWith(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -143,7 +147,7 @@ class _DetailPageState extends State<DetailPage> {
                                 child: Container(
                                   width: 35,
                                   height: 35,
-                                  decoration: BoxDecoration(
+                                  decoration: const BoxDecoration(
                                     image: DecorationImage(
                                       image: AssetImage('assets/btn_add.png'),
                                     ),
@@ -154,37 +158,37 @@ class _DetailPageState extends State<DetailPage> {
                           ),
                         ],
                       ),
-                      // food description
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 14, 0, 16),
+                        margin: const EdgeInsets.fromLTRB(0, 14, 0, 16),
                         child: Text(
                           widget.transaction!.food!.description!,
-                          style: blackFontStyle3,
+                          style: heading3,
                           textAlign: TextAlign.justify,
                         ),
                       ),
-                      // ingredients
                       Row(
                         children: [
+                          Text(
+                            'Ingredients ',
+                            style: heading3,
+                          ),
                           Icon(
                             Icons.info,
-                            color: MainColor,
+                            color: mainColor,
                             size: 20,
-                          ),
-                          Text(
-                            'Ingredients',
-                            style: blackFontStyle3,
                           ),
                         ],
                       ),
                       Container(
-                        margin: EdgeInsets.fromLTRB(0, 4, 0, 16),
-                        child:
-                            Text(widget.transaction!.food!.ingredients! ?? ''),
+                        margin: const EdgeInsets.fromLTRB(0, 4, 0, 16),
+                        child: Text(
+                          widget.transaction!.food!.ingredient!,
+                          style: heading3,
+                          textAlign: TextAlign.justify,
+                        ),
                       ),
-                      // total price
                       Container(
-                        margin: EdgeInsets.only(bottom: 16),
+                        margin: const EdgeInsets.only(bottom: 16),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -192,61 +196,56 @@ class _DetailPageState extends State<DetailPage> {
                               children: [
                                 Text(
                                   'Total Price ',
-                                  style: blackFontStyle3,
+                                  style: heading3,
                                 ),
                                 Icon(
                                   Icons.monetization_on,
-                                  color: MainColor,
+                                  color: mainColor,
+                                  size: 20,
                                 ),
                               ],
                             ),
                             Text(
                               NumberFormat.currency(
-                                      symbol: 'IDR',
-                                      decimalDigits: 0,
-                                      locale: 'id_ID')
-                                  .format(
-                                quantity *
-                                    (widget.transaction?.food?.price?.toInt() ??
-                                        0),
+                                symbol: 'IDR ',
+                                decimalDigits: 0,
+                                locale: 'id_ID',
+                              ).format(
+                                quantity * widget.transaction!.food!.price!,
                               ),
+                              style: heading3,
                             ),
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
-                      // Button Order
                       SizedBox(
                         width: double.infinity,
                         height: 45,
                         child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: MainColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                          ),
                           onPressed: () {
                             Get.to(
                               PaymentPage(
-                                transaction: widget.transaction!.copywith(
-                                  quantity: quantity,
+                                transaction: widget.transaction!.copyWith(
+                                  quntity: quantity,
                                   total: quantity *
-                                      (widget.transaction?.food?.price
-                                              ?.toInt() ??
-                                          0),
+                                      (widget.transaction!.food!.price!
+                                          .toInt()),
                                 ),
                               ),
                             );
                           },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: mainColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
                           child: Text(
                             'Order Now',
-                            style: blackFontStyle2.copyWith(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w800,
-                            ),
+                            style: heading2,
                           ),
                         ),
                       ),

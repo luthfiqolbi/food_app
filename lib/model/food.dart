@@ -1,13 +1,13 @@
 part of 'models.dart';
 
-enum FoodType { new_food, popular, recommended }
+enum FoodType { newFood, popularFood, recommended }
 
 class Food extends Equatable {
   final int? id;
   final String? name;
-  final String? picturePath;
   final String? description;
-  final String? ingredients;
+  final String? ingredient;
+  final String? picturePath;
   final double? price;
   final double? rate;
   final List<FoodType>? types;
@@ -15,32 +15,32 @@ class Food extends Equatable {
   Food({
     this.id,
     this.name,
-    this.picturePath,
     this.description,
-    this.ingredients,
+    this.ingredient,
+    this.picturePath,
     this.price,
     this.rate,
     this.types = const [],
   });
 
-  factory Food.fromjson(Map<String, dynamic> data) => Food(
-        id: data['data'],
+  factory Food.fromJson(Map<String, dynamic> data) => Food(
+        id: data['id'],
         name: data['name'],
-        picturePath: data['picturePath'],
         description: data['description'],
-        ingredients: data['ingredients'],
+        ingredient: data['ingredients'],
+        picturePath: data['picturePath'],
         price: data['price'].toDouble(),
         rate: data['rate'].toDouble(),
         types: data['types'].toString().split(',').map((e) {
           switch (e) {
-            case 'new food':
-              return FoodType.new_food;
+            case 'new_food':
+              return FoodType.newFood;
             case 'popular':
-              return FoodType.popular;
+              return FoodType.popularFood;
             case 'recommended':
               return FoodType.recommended;
             default:
-              return FoodType.new_food;
+              return FoodType.newFood;
           }
         }).toList(),
       );
@@ -49,15 +49,15 @@ class Food extends Equatable {
   List<Object?> get props => [
         id,
         name,
-        picturePath,
         description,
-        ingredients,
+        ingredient,
+        picturePath,
         price,
         rate,
       ];
 }
 
-List<Food> Foods = [
+List<Food> mockFoods = [
   Food(
     id: 1,
     picturePath:
@@ -65,10 +65,10 @@ List<Food> Foods = [
     name: 'Sate Sayur Sultan',
     description:
         'Sate Sayur Sultan adalah menu sate vegan paling terkenal di Jakarta. Sate ini dibuat dari berbagai macam bahan berkualitas terbaik dan langsung dibuat oleh chef handal. Sate ini sangat sehat dan bergizi.',
-    ingredients: 'Sayuran, Santan, Kecap Manis, Bumbu Kacang,',
+    ingredient: "Sate, Sayur",
     price: 150000,
     rate: 4.2,
-    types: [FoodType.new_food, FoodType.popular, FoodType.recommended],
+    types: const [FoodType.newFood, FoodType.popularFood],
   ),
   Food(
     id: 2,
@@ -77,10 +77,10 @@ List<Food> Foods = [
     name: 'Nasi Goreng Kambing',
     description:
         'Nasi Goreng Kambing spesial dengan bumbu rempah rahasia yang kaya akan cita rasa. Cocok untuk Anda yang menggemari makanan gurih dan pedas.',
-    ingredients: 'Daging Kambing, Bawang Merah, Bawang Putih',
+    ingredient: "Nasi, kambing, bumbu rempah rahasia",
     price: 25000,
     rate: 4.5,
-    types: [FoodType.new_food, FoodType.popular, FoodType.recommended],
+    types: const [FoodType.newFood, FoodType.popularFood, FoodType.recommended],
   ),
   Food(
     id: 3,
@@ -89,7 +89,7 @@ List<Food> Foods = [
     name: 'Mie Ayam Jamur',
     description:
         'Mie Ayam Jamur dengan topping ayam yang empuk dan jamur yang segar, disajikan dengan kuah kaldu yang lezat.',
-    ingredients: 'Mie, Daging Ayam, Jamur',
+    ingredient: "Mie, ayam, jamur, kuah kaldu, topping ayam, topping jamur",
     price: 20000,
     rate: 4.7,
   ),
@@ -100,10 +100,9 @@ List<Food> Foods = [
     name: 'Bakso Beranak',
     description:
         'Bakso Beranak dengan ukuran jumbo berisi bakso kecil di dalamnya. Sangat cocok untuk pecinta makanan berkuah.',
-    ingredients: 'Daging Sapi, Bumbu Kaldu',
+    ingredient: "Bakso, bakso kecil, bakso jumbo",
     price: 30000,
     rate: 4.3,
-    types: [FoodType.new_food, FoodType.popular, FoodType.recommended],
   ),
   Food(
     id: 5,
@@ -112,9 +111,10 @@ List<Food> Foods = [
     name: 'Ayam Bakar Taliwang',
     description:
         'Ayam Bakar khas Lombok dengan bumbu pedas dan gurih, disajikan dengan plecing kangkung dan sambal terasi.',
-    ingredients: 'Daging Ayam, Cabai, Garam',
+    ingredient: "Ayam, bumbu pedas, gurih, plecing kangkung, sambal terasi",
     price: 50000,
     rate: 4.8,
+    types: const [FoodType.recommended, FoodType.popularFood],
   ),
   Food(
     id: 6,
@@ -123,10 +123,10 @@ List<Food> Foods = [
     name: 'Gado-Gado Jakarta',
     description:
         'Gado-Gado dengan sayuran segar, tahu, tempe, dan lontong, disiram saus kacang kental yang gurih.',
-    ingredients: 'Sayuran, Saus Kacang',
+    ingredient: "Gado-Gado, tahu, tempe, lontong",
     price: 20000,
     rate: 4.6,
-    types: [FoodType.new_food, FoodType.popular, FoodType.recommended],
+    types: const [FoodType.popularFood, FoodType.recommended],
   ),
   Food(
     id: 7,
@@ -135,9 +135,9 @@ List<Food> Foods = [
     name: 'Es Cendol Durian',
     description:
         'Minuman es cendol dengan topping buah durian yang manis dan creamy, cocok untuk menghilangkan dahaga.',
-    ingredients: 'Santan, Durian, Cendol',
+    ingredient: "Es cendol, buah durian",
     price: 25000,
     rate: 4.4,
-    types: [FoodType.new_food, FoodType.popular, FoodType.recommended],
+    types: const [FoodType.recommended, FoodType.newFood],
   ),
 ];

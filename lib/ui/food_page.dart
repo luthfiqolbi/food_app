@@ -22,47 +22,46 @@ class _FoodPageState extends State<FoodPage> {
 
   @override
   Widget build(BuildContext context) {
-    double listItemWidth =
-        MediaQuery.of(context).size.width - 2 * defaultMargin;
+    double listWidth = MediaQuery.of(context).size.width - 2 * defaultMargin;
 
     return ListView(
       children: [
-        //header
+        // header
         Container(
-          color: Colors.white,
-          height: 100,
           width: double.infinity,
-          padding: EdgeInsets.symmetric(
+          height: 100,
+          padding: const EdgeInsets.symmetric(
             horizontal: defaultMargin,
           ),
+          color: darkColor,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+                children: [
                   Text(
-                    "Food Market",
-                    style: blackFontStyle1,
+                    "Food Market.",
+                    style: heading1,
                   ),
                   Text(
-                    "Let's get some food",
-                    style: blackFontStyle2,
+                    "Let's obtain some food.",
+                    style: heading2,
                   ),
                 ],
               ),
               Container(
-                width: 60,
-                height: 60,
+                width: 50,
+                height: 50,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     image: NetworkImage(
                       (context.read<UserCubit>().state as UserLoaded)
                               .user
-                              .picturepath ??
-                          'https://ui-avatars.com/api/?name=${(context.read<UserCubit>().state as UserLoaded)}',
+                              .picturePath ??
+                          "http://ui-avatars.com/api/?name=${(context.read<UserCubit>().state as UserLoaded).user.name}",
                     ),
                     fit: BoxFit.cover,
                   ),
@@ -71,21 +70,21 @@ class _FoodPageState extends State<FoodPage> {
             ],
           ),
         ),
-        //card food
         Container(
           height: 220,
           width: double.infinity,
-          margin: EdgeInsets.symmetric(
+          margin: const EdgeInsets.symmetric(
             vertical: defaultMargin,
           ),
           child: BlocBuilder<FoodCubit, FoodState>(
-            builder: (_, state) => (state is FoodLoaded)
-                ? ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: state.foods
-                        .map((food) => Padding(
+              builder: (_, state) => (state is FoodLoaded)
+                  ? ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: state.food
+                          .map(
+                            (food) => Padding(
                               padding: EdgeInsets.only(
-                                  left: (food == state.foods.first)
+                                  left: food == state.food.first
                                       ? defaultMargin
                                       : 0,
                                   right: defaultMargin),
@@ -97,81 +96,85 @@ class _FoodPageState extends State<FoodPage> {
                                         Get.back();
                                       },
                                       transaction: Transaction(
-                                          food: food,
-                                          user: (context.read<UserCubit>().state
-                                                  as UserLoaded)
-                                              .user),
+                                        food: food,
+                                        user: (context.read<UserCubit>().state
+                                                as UserLoaded)
+                                            .user,
+                                      ),
                                     ),
-                                  )!.then((value){
+                                  )!
+                                      .then((value) {
                                     onRefresh();
                                   });
                                 },
-                                child: FoodCard(food: food),
+                                child: FoodCard(
+                                  food: food,
+                                ),
                               ),
-                            ))
-                        .toList(),
-                  )
-                : Center(),
-          ),
+                            ),
+                          )
+                          .toList(),
+                    )
+                  : const Center()),
         ),
-        //tab layout
         Container(
           width: double.infinity,
-          color: Colors.white,
+          color: Colors.black,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CustomTabBar(
+              Tabbar(
                 selectedIndex: selectedIndex,
-                titles: [
-                  'New Taste',
-                  'Popular',
-                  'Recommended',
-                ],
+                titles: const ["New Taste", "Popular", "Recommended"],
                 onTap: (index) {
                   setState(() {
                     selectedIndex = index;
                   });
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               BlocBuilder<FoodCubit, FoodState>(
                 builder: (_, state) {
                   if (state is FoodLoaded) {
-                    List<Food> foods = state.foods
-                        .where((e) => e.types!.contains((selectedIndex == 0)
-                            ? FoodType.new_food
-                            : (selectedIndex == 1)
-                                ? FoodType.popular
-                                : FoodType.recommended))
+                    List<Food> foods = state.food
+                        .where(
+                          (e) => e.types!.contains(
+                            (selectedIndex == 0)
+                                ? FoodType.newFood
+                                : (selectedIndex == 1)
+                                    ? FoodType.popularFood
+                                    : FoodType.recommended,
+                          ),
+                        )
                         .toList();
-
                     return Column(
                       children: foods
                           .map(
-                            (e) => Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Get.to(
-                                    DetailPage(
-                                      onBackButtonPressed: () {
-                                        Get.back();
-                                      },
-                                      transaction: Transaction(
-                                        food: e,
-                                        user: (context.read<UserCubit>().state
-                                                as UserLoaded)
-                                            .user,
-                                      ),
+                            (e) => GestureDetector(
+                              onTap: () {
+                                Get.to(
+                                  DetailPage(
+                                    onBackButtonPressed: () {
+                                      Get.back();
+                                    },
+                                    transaction: Transaction(
+                                      food: e,
+                                      user: (context.read<UserCubit>().state
+                                              as UserLoaded)
+                                          .user,
                                     ),
-                                  );
-                                },
+                                  ),
+                                )!
+                                    .then((value) {
+                                  onRefresh();
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
                                 child: FoodListItem(
                                   food: e,
-                                  itemwidth: listItemWidth,
+                                  itemWidth: listWidth,
                                 ),
                               ),
                             ),
@@ -185,12 +188,12 @@ class _FoodPageState extends State<FoodPage> {
                   }
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 80,
-              )
+              ),
             ],
           ),
-        ),
+        )
       ],
     );
   }

@@ -5,16 +5,18 @@ class SuccessOrderPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return IlustrationPage(
-      title: 'Other Foods are on the way',
-      subtitle: 'Just stay at home while we are preparing your best food',
-      picturepath: 'assets/bike.png',
-      buttontap1: (){
+    return IllustrationPage(
+      title: 'You\'ve Made Order.',
+      subtitle: 'Just stay at home while we are \npreparing your meal.',
+      picturePath: "assets/bike.png",
+      buttonTitle1: "Order Other Foods",
+      buttonTap1: () {
+        Get.offAll(const MainPage());
+      },
+      buttonTitle2: "View My Order",
+      buttonTap2: () {
         Get.offAll(MainPage(initialPage: 1));
       },
-      buttontap2: (){},
-      buttontitle1: 'View My Order',
-      buttontitle2: 'View My Order',
     );
   }
 }
