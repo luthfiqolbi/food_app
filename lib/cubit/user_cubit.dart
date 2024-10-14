@@ -54,4 +54,14 @@ class UserCubit extends Cubit<UserState> {
       emit(UserLoadingFailed(result.message!));
     }
   }
+
+  Future<void> updateProfile(User user) async{
+    ApiReturnValue<User> result = await UserService.updateProfile(user);
+
+    if(result.value != null){
+      emit(UserLoaded(result.value!));
+    } else {
+      emit(UserLoadingFailed(result.message!));
+    }
+  }
 }

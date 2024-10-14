@@ -215,58 +215,82 @@ class _AddressPageState extends State<AddressPage> {
                     ? loadingIndicator
                     : ElevatedButton(
                         onPressed: () async {
-                          User user = widget.user.copyWith(
-                            address: addressController.text,
-                            phoneNumber: phoneNumberController.text,
-                            houseNumber: houseNumberController.text,
-                            city: selectedCity,
-                          );
-
-                          setState(() {
-                            isLoading = true;
-                          });
-
-                          // Simulasi penundaan (hanya untuk pengujian, bisa dihapus)
-                          await Future.delayed(const Duration(seconds: 2));
-
-                          // memanggil fungsi signup
-                          await context.read<UserCubit>().signUp(
-                                user,
-                                widget.password,
-                                pictureFile: widget.pictureFile,
-                              );
-
-                          // mendapatkan state setelah signup
-                          UserState state = context.read<UserCubit>().state;
-
-                          // memeriksa stutus
-                          if (state is UserLoaded) {
-                            context.read<FoodCubit>().getFoods();
-                            context.read<TransactionCubit>().getTransactions();
-                            Get.to(() => MainPage());
-                          } else {
+                          if (addressController.text == "" ||
+                              phoneNumberController.text == "" ||
+                              houseNumberController.text == "") {
                             Get.snackbar(
                               "",
                               "",
-                              backgroundColor: Colors.black,
+                              backgroundColor: "D9435E".toColor(),
                               icon: Icon(
                                 MdiIcons.closeCircleOutline,
                                 color: whiteColor,
                               ),
                               titleText: Text(
-                                "Sign In Failed",
+                                "Please fill all the fields",
                                 style: heading1,
                               ),
                               messageText: Text(
-                                'Please Try Again Later',
+                                "Wen don't want to miss you",
                                 style: heading3,
                               ),
                             );
-                          }
+                          } else {
+                            User user = widget.user.copyWith(
+                              address: addressController.text,
+                              phoneNumber: phoneNumberController.text,
+                              houseNumber: houseNumberController.text,
+                              city: selectedCity,
+                            );
 
-                          setState(() {
-                            isLoading = false;
-                          });
+                            setState(() {
+                              isLoading = true;
+                            });
+
+                            // Simulasi penundaan (hanya untuk pengujian, bisa dihapus)
+                            await Future.delayed(const Duration(seconds: 2));
+
+                            // memanggil fungsi signup
+                            await context.read<UserCubit>().signUp(
+                                  user,
+                                  widget.password,
+                                  pictureFile: widget.pictureFile,
+                                );
+
+                            // mendapatkan state setelah signup
+                            UserState state = context.read<UserCubit>().state;
+
+                            // memeriksa stutus
+                            if (state is UserLoaded) {
+                              context.read<FoodCubit>().getFoods();
+                              context
+                                  .read<TransactionCubit>()
+                                  .getTransactions();
+                              Get.to(() => MainPage());
+                            } else {
+                              Get.snackbar(
+                                "",
+                                "",
+                                backgroundColor: Colors.black,
+                                icon: Icon(
+                                  MdiIcons.closeCircleOutline,
+                                  color: whiteColor,
+                                ),
+                                titleText: Text(
+                                  "Sign In Failed",
+                                  style: heading1,
+                                ),
+                                messageText: Text(
+                                  'Please Try Again Later',
+                                  style: heading3,
+                                ),
+                              );
+                            }
+
+                            setState(() {
+                              isLoading = false;
+                            });
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: mainColor,

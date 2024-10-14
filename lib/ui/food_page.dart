@@ -33,7 +33,7 @@ class _FoodPageState extends State<FoodPage> {
           padding: const EdgeInsets.symmetric(
             horizontal: defaultMargin,
           ),
-          color: darkColor,
+          color:'257180'.toColor(),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -119,7 +119,7 @@ class _FoodPageState extends State<FoodPage> {
         ),
         Container(
           width: double.infinity,
-          color: Colors.black,
+          color: '257180'.toColor(),
           child: Column(
             children: [
               Tabbar(

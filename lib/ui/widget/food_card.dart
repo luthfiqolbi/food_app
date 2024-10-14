@@ -15,10 +15,10 @@ class FoodCard extends StatelessWidget {
       width: 200,
       height: 200,
       decoration: BoxDecoration(
-        color: darkColor,
+        color: '257180'.toColor(),
         boxShadow: [
           BoxShadow(
-            color: Colors.white.withOpacity(0.2),
+            color: 'FFF100'.toColor(),
             blurRadius: 5,
             spreadRadius: 0,
             offset: const Offset(1, 1),

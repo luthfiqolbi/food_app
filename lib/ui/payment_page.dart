@@ -182,7 +182,7 @@ class _PaymentPageState extends State<PaymentPage> {
                         symbol: 'IDR ',
                         decimalDigits: 0,
                         locale: 'id_ID',
-                      ).format(50000),
+                      ).format(10000),
                       style: heading3,
                     ),
                   ],

@@ -37,23 +37,28 @@ class _ProfilePageState extends State<ProfilePage> {
                   width: double.infinity,
                   height: double.infinity,
                   margin: const EdgeInsets.all(8),
-                  decoration: const BoxDecoration(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
                     image: DecorationImage(
-                        image: AssetImage(
-                          "assets/photo.png",
-                        ),
-                        fit: BoxFit.cover),
+                      image: NetworkImage(
+                        (context.read<UserCubit>().state as UserLoaded)
+                            .user
+                            .picturePath ??
+                            "http://ui-avatars.com/api/?name=${(context.read<UserCubit>().state as UserLoaded).user.name}",
+                      ),
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
               ),
               Text(
-                mockUser.name ?? "name",
+                (context.read<UserCubit>().state as UserLoaded).user.name ?? '',
                 style: heading1.copyWith(
                   color: mainColor,
                 ),
               ),
               Text(
-                mockUser.email ?? "email",
+                (context.read<UserCubit>().state as UserLoaded).user.email ?? '',
                 style: heading2.copyWith(),
               ),
             ],
