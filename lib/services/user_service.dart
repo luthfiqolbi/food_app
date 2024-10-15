@@ -122,18 +122,20 @@ class UserService {
     print("URL Logout : $url");
 
     var uri = Uri.parse(url);
-    var response = await http.post(uri, headers: ApiServices.headersPost(token: User.token));
+    var response = await http.post(uri,
+        headers: ApiServices.headersPost(token: User.token));
 
     print("Reponse Logout : ${response.body}");
 
-    if(response.statusCode != 200) {
+    if (response.statusCode != 200) {
       return ApiReturnValue(message: 'Logout Failed');
     }
 
     return ApiReturnValue(value: true);
   }
 
-  static Future<ApiReturnValue<User>> updateProfile(User user, {http.Client? client}) async {
+  static Future<ApiReturnValue<User>> updateProfile(User user,
+      {http.Client? client}) async {
     client ??= http.Client();
 
     String url = '$baseUrl/user';
@@ -141,16 +143,16 @@ class UserService {
     print('URL Update Profile : $url');
 
     var response = await client.post(Uri.parse(url),
-      headers: ApiServices.headersPost(token: User.token),
-      body: jsonEncode(<String, String>{
-        'name' : user.name!,
-        'address' : user.address!,
-        'city' : user.city!,
-        'houseNumber' : user.houseNumber!,
-        'phoneNumber' : user.phoneNumber!,
-      }));
+        headers: ApiServices.headersPost(token: User.token),
+        body: jsonEncode(<String, String>{
+          'name': user.name!,
+          'address': user.address!,
+          'city': user.city!,
+          'houseNumber': user.houseNumber!,
+          'phoneNumber': user.phoneNumber!,
+        }));
 
-    if(response.statusCode != 200){
+    if (response.statusCode != 200) {
       return ApiReturnValue(message: 'Update Profile failed, please try again');
     }
 
@@ -159,6 +161,29 @@ class UserService {
     User value = User.fromJson(data['data']);
 
     return ApiReturnValue(value: value);
+  }
 
+  static Future<ApiReturnValue<User>> getUser(User user, {http.Client? client}) async {
+    client ??= http.Client();
+
+    String url = '$baseUrl/user';
+    print('URL Get User : $url');
+
+    var response = await client.get(Uri.parse(url),
+        headers: ApiServices.headersGet(token: User.token));
+
+    if (response.statusCode != 200){
+      return ApiReturnValue(
+        message: 'Get User failed, please try again'
+      );
+    }
+
+    print("Response Get User : ${response.body}");
+
+    var data = jsonDecode(response.body);
+
+    User value = User.fromJson(data['data']);
+
+    return ApiReturnValue(value: value);
   }
 }

@@ -29,3 +29,4 @@ part 'success_order_page.dart';
 part 'success_sign_up_page.dart';
 part 'profile_page.dart';
 part 'payment_method_page.dart';
+part 'edit_profile_page.dart';

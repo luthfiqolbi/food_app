@@ -11,7 +11,7 @@ part "user_service.dart";
 String baseUrl = "https://food.rtid73.com/api";
 
 abstract class ApiServices {
-  static headers({String? token}) {
+  static headersGet({String? token}) {
     return {
       'Accept': 'application/json',
       'Authorization': 'Bearer ${token ?? User.token}'
@@ -27,7 +27,7 @@ abstract class ApiServices {
 
   static Future<dynamic> get(String url) async {
     var uri = Uri.parse(url);
-    var response = await http.get(uri, headers: headers());
+    var response = await http.get(uri, headers: headersGet());
 
     if (response.statusCode != 200) {
       throw Exception('get $url Failed');

@@ -140,10 +140,15 @@ class RowTab extends StatelessWidget {
           title,
           style: heading2,
         ),
-        Icon(
-          MdiIcons.chevronRight,
-          color: whiteColor,
-          size: 40,
+        GestureDetector(
+          onTap: (){
+            Get.to(EditProfilePage());
+          },
+          child: Icon(
+            MdiIcons.chevronRight,
+            color: whiteColor,
+            size: 40,
+          ),
         )
       ],
     );
