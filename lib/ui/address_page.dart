@@ -266,7 +266,7 @@ class _AddressPageState extends State<AddressPage> {
                               context
                                   .read<TransactionCubit>()
                                   .getTransactions();
-                              Get.to(() => MainPage());
+                              Get.to(() => SuccessSignUpPage());
                             } else {
                               Get.snackbar(
                                 "",

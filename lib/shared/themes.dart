@@ -15,6 +15,7 @@ Widget loadingIndicator = SpinKitFadingCircle(
 );
 
 TextStyle greyFontStyle = GoogleFonts.poppins().copyWith(color: greyColor);
+TextStyle blackFontStyle = GoogleFonts.poppins().copyWith(color: Colors.black);
 TextStyle heading1 = GoogleFonts.poppins().copyWith(
   color: whiteColor,
   fontSize: 22.0,

@@ -42,8 +42,8 @@ class _ProfilePageState extends State<ProfilePage> {
                     image: DecorationImage(
                       image: NetworkImage(
                         (context.read<UserCubit>().state as UserLoaded)
-                            .user
-                            .picturePath ??
+                                .user
+                                .picturePath ??
                             "http://ui-avatars.com/api/?name=${(context.read<UserCubit>().state as UserLoaded).user.name}",
                       ),
                       fit: BoxFit.cover,
@@ -58,7 +58,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
               ),
               Text(
-                (context.read<UserCubit>().state as UserLoaded).user.email ?? '',
+                (context.read<UserCubit>().state as UserLoaded).user.email ??
+                    '',
                 style: heading2.copyWith(),
               ),
             ],
@@ -133,6 +134,12 @@ class RowTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void refresh() {
+      context
+          .read<UserCubit>()
+          .getUser((context.read<UserCubit>().state as UserLoaded).user);
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -141,8 +148,8 @@ class RowTab extends StatelessWidget {
           style: heading2,
         ),
         GestureDetector(
-          onTap: (){
-            Get.to(EditProfilePage());
+          onTap: () {
+            Get.to(EditProfilePage())!.then((value) => refresh());
           },
           child: Icon(
             MdiIcons.chevronRight,
